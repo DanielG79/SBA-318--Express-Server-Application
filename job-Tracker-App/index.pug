@@ -1,0 +1,39 @@
+doctype html
+html(lang='en')
+  head
+    title Job Tracker 
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='style.css')
+  body
+    h1 Job Tracker
+    form(action='/jobs', method='POST')
+      input(type='text', name='company', placeholder='Company')
+      input(type='text', name='position', placeholder='Position')
+      select(name='status')
+        option(value='applied') Applied
+        option(value='in-progress') In Progress
+        option(value='rejected') Rejected
+        option(value='offered') Offered
+      input(type='date', name='dateApplied')
+      textarea(name='notes', placeholder='Notes')
+      button(type='submit') Add Job
+    table
+      thead
+        tr
+          th Company
+          th Position
+          th Status
+          th Date Applied
+          th Actions
+      tbody
+        each job in jobs
+          tr
+            td #{job.company}
+            td #{job.position}
+            td #{job.status}
+            td #{job.dateApplied}
+            td
+                button(onclick=`editJob(${job._id})`) Edit
+               button(onclick=`deleteJob(${job._id})`) Delete
+
+    script(src='script.js')
